@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.MainClass</mainClass> <!-- Replace with your actual main class -->
+                            <mainClass>com.example.Main</mainClass> <!-- Update with the correct fully qualified name of your main class -->
                         </manifest>
                     </archive>
                 </configuration>
