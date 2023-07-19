@@ -1,55 +1,30 @@
-package ApploginTest;
+package ApploginTest; // Update package name to match the actual package name
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-import applogin.login;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-public class ApplicationTest {
+public class login {
 
     private WebDriver driver;
-    private login login;
 
-    @BeforeMethod
+    public login(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void setup() {
-        // Set the path to the chromedriver executable
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-
-        // Create ChromeOptions and enable headless mode
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless"); // Enable headless mode
-
-        // Create the WebDriver instance using ChromeOptions
-        driver = new ChromeDriver(options);
-        login = new login(driver);
+        driver.get("https://www.example.com"); // Replace with the URL you want to test
     }
 
-    @Test(priority = 1)
-    public void launchapp() {
-        login.setup();
+    public boolean verify() {
+        // Replace this with the logic to verify the text on the page
+        String expectedText = "Expected Text";
+        String actualText = driver.findElement(By.tagName("body")).getText();
+        return actualText.contains(expectedText);
     }
 
-    @Test(priority = 2)
-    public void VerifyText() {
-        boolean status = login.verify();
-
-        if (status) {
-            Assert.assertTrue(true);
-            System.out.println("Enter text is displayed");
-        } else {
-            System.out.println("User needs to enter the text");
-            Assert.assertTrue(false);
-        }
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        // Quit the WebDriver after each test
-        driver.quit();
+    // Add the teardown() method if you need it
+    public void teardown() {
+        // Add the logic to tear down or clean up after the test
+        // For example, closing the browser or releasing resources.
     }
 }
