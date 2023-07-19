@@ -12,11 +12,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ApplicationTest {
 
-    private WebDriver driver;
-    private login loginInstance;
+    WebDriver driver;
+    login loginInstance;
 
     @BeforeClass
-    public void setUp() {
+    public void setup() {
         // Set up ChromeOptions for headless mode
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless"); // Add the headless argument
@@ -25,24 +25,30 @@ public class ApplicationTest {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver(options);
 
-        // Create an instance of the login class
-        loginInstance = new login();
-        loginInstance.setup(driver);
+        // Initialize login instance
+        loginInstance = new login(driver);
     }
 
     @Test(priority = 1)
     public void launchapp() {
-        // Test case logic here
+        loginInstance.setup();
     }
 
     @Test(priority = 2)
     public void VerifyText() {
-        // Test case logic here
+        boolean status = loginInstance.verify();
+
+        if (status) {
+            Assert.assertTrue(true);
+            System.out.println("Enter text is displayed");
+        } else {
+            System.out.println("User needs to enter the text");
+            Assert.assertTrue(false);
+        }
     }
 
     @AfterClass
-    public void tearDown() {
-        loginInstance.teardown();
+    public void teardown() {
         driver.quit();
     }
 }
