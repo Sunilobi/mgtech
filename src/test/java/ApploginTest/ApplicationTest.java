@@ -1,8 +1,6 @@
 package ApploginTest;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import applogin.login;
@@ -12,25 +10,18 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ApplicationTest {
 
-    WebDriver driver;
     login loginInstance;
 
-    @BeforeClass
-    public void setup() {
+    @Test(priority = 1)
+    public void launchapp() {
         // Set up ChromeOptions for headless mode
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless"); // Add the headless argument
 
         // Initialize ChromeDriver with headless mode
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver(options);
 
-        // Initialize login instance
-        loginInstance = new login(driver);
-    }
-
-    @Test(priority = 1)
-    public void launchapp() {
+        loginInstance = new login(driver); // Initialize the login instance with the driver
         loginInstance.setup();
     }
 
@@ -45,10 +36,7 @@ public class ApplicationTest {
             System.out.println("User needs to enter the text");
             Assert.assertTrue(false);
         }
-    }
 
-    @AfterClass
-    public void teardown() {
-        driver.quit();
+        loginInstance.teardown();
     }
 }
