@@ -9,32 +9,26 @@ import org.testng.annotations.BeforeClass;
 
 public class login {
 
-	public WebDriver driver;
+    public WebDriver driver;
 
-	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-		driver = new ChromeDriver();
-		driver.get("http://sunil-virtualbox:8050/webapp/");
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("http://sunil-virtualbox:8050/webapp/");
 
-		WebElement searchbox = driver.findElement(By.xpath("/html/body/form/input[1]"));
+        WebElement searchbox = driver.findElement(By.xpath("/html/body/form/input[1]"));
+        searchbox.sendKeys("Nicky");
 
-		searchbox.sendKeys("Nicky");
+        driver.findElement(By.xpath("/html/body/form/input[2]")).click();
+    }
 
-		driver.findElement(By.xpath("/html/body/form/input[2]")).click();
+    public boolean verify() {
+        WebElement msg = driver.findElement(By.xpath("/html/body/p"));
+        return msg.isDisplayed();
+    }
 
-	}
-
-	public boolean verify() {
-
-		WebElement msg = driver.findElement(By.xpath("/html/body/p"));
-
-		return msg.isDisplayed();
-
-	}
-
-	public void traedown() {
-		driver.quit();
-
-	}
+    public void teardown() {
+        driver.quit();
+    }
 
 }
