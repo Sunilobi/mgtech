@@ -1,30 +1,47 @@
-package ApploginTest; // Update package name to match the actual package name
+package ApploginTest;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class login {
+import applogin.login;
 
-    private WebDriver driver;
+public class ApplicationTest {
+	
+	login login=new login();
+	
+	
+	@Test(priority=1)
+	public void launchapp()
+	{
+		
+		login.setup();
+	}
+	
+	
+	@Test(priority=2)
+	public void VerifyText()
+	{
+		
+		boolean status=login.verify();
+		
+		if(status==true)
+		{
+			Assert.assertTrue(true);
+			System.out.println("Enter text is dispalyed");
+			
+		}else
+		{
+			System.out.println("User need to enter the text");
+			Assert.assertTrue(false);
+			
+			
+		}
+		
+		
+		login.traedown();
+		
+		
+		
+	}
 
-    public login(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void setup() {
-        driver.get("https://www.example.com"); // Replace with the URL you want to test
-    }
-
-    public boolean verify() {
-        // Replace this with the logic to verify the text on the page
-        String expectedText = "Expected Text";
-        String actualText = driver.findElement(By.tagName("body")).getText();
-        return actualText.contains(expectedText);
-    }
-
-    // Add the teardown() method if you need it
-    public void teardown() {
-        // Add the logic to tear down or clean up after the test
-        // For example, closing the browser or releasing resources.
-    }
 }
