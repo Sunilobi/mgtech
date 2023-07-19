@@ -49,6 +49,7 @@ public class ApplicationTest {
 
 	@AfterTest
 	public void tearDown() {
-		loginInstance.tearDown();
+		loginInstance.teardown();
+		driver.quit();
 	}
 }
